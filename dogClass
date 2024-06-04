@@ -1,0 +1,71 @@
+#include<iostream>
+using namespace std;
+
+class Dog {
+private:
+    int score = 0;
+
+public:
+    char name[10];
+    int birthYear;
+
+    void setScore(int s)
+    {
+        score += s;
+    }
+
+    void bark()
+    {
+        cout << "Bark!\n";
+    }
+
+    int calAge()
+    {
+        return 2024 - birthYear + 1;
+    }
+
+    int getScore()
+    {
+        return score;
+    }
+};
+
+
+
+int main()
+{
+    Dog myDog;
+
+    cout << "Enter the name of the dog: ";
+    cin >> myDog.name;
+
+    cout << "Enter the dog's year of birth: ";
+    cin >> myDog.birthYear;
+
+    int bark, score, commond;
+    
+    do {
+
+        cout << "Enter a pars, a score and a command(Enter in order &&"
+             << " 0 = false && 1 = true): ";
+        cin >> bark >> score >> commond;
+        
+        if (bark)
+            myDog.bark();
+
+        if (score)
+            myDog.setScore(1);
+
+    } while (commond == 1);
+    
+    cout << "The name of the dog: ";
+    cout << myDog.name << endl;
+    
+    cout << "Age of the dog: ";
+    cout << myDog.calAge() << endl;
+
+    cout << "Dog score: ";
+    cout << myDog.getScore() << endl;
+
+    return 0;
+}
