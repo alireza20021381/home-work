@@ -1,1 +1,120 @@
+#include<iostream>
+#include<iomanip>
+using namespace std;
 
+// A class for time
+class Time {
+public:
+    int hours, minutes, seconds;
+
+    // Class constructor
+    Time(int hour, int minute, int second)
+    {
+        if (hour > 23 || hour < 0)
+            cout << "The entered time is out of range\n";
+        else if (minute > 59 || minute < 0)
+            cout << "The entered time is out of range\n";
+        else if (second > 59 || second < 0)
+            cout << "The entered time is out of range\n";
+        else {
+            hours = hour;
+            minutes = minute;
+            seconds = second;
+        }
+    }// Constructor end
+
+    // A class to compare two times(Output one for the object to be
+    // greater than the input, output  -1 for the object to be smaller
+    // than the input, and output zero for the object to be equal to
+    // the input).
+    int compareTime(Time input) {
+        if (hours > input.hours) {
+            return 1;
+        }
+        else if (hours < input.hours) {
+            return -1;
+        }
+        else {
+            if (minutes > input.minutes){
+                return 1;
+            }
+            else if (minutes < input.minutes) {
+                return -1;
+            }
+            else {
+                if (seconds > input.seconds) {
+                    return 1;
+                }
+                else if (seconds < input.seconds) {
+                    return -1;
+                }
+            }
+        }
+        return 0;
+    }
+
+    // A function to calculate the time difference
+    void computeTimeDifference(Time input, Time& difference) {
+
+        // If the object is larger than the input
+        if (compareTime(input) == 1) {
+            if (seconds < input.seconds) {
+                --minutes;
+                seconds += 60;
+            }
+            difference.seconds = seconds - input.seconds;
+            if (minutes < input.minutes) {
+                --hours;
+                minutes += 60;
+            }
+            difference.minutes = minutes - input.minutes;
+            difference.hours = hours - input.hours;
+        }
+
+        // If the object is smaller than the input
+        if (compareTime(input) == -1) {
+            if (seconds > input.seconds) {
+                --input.minutes;
+                input.seconds += 60;
+            }
+            difference.seconds = input.seconds - seconds;
+            if (minutes > input.minutes) {
+                --input.hours;
+                input.minutes += 60;
+            }
+            difference.minutes = input.minutes - minutes;
+            difference.hours = input.hours - hours;
+        }
+
+        //If the object is equal to the input
+        if (compareTime(input) == 0) {
+            difference.seconds = 0;
+            difference.minutes = 0;
+            difference.hours = 0;
+        }
+
+    } // End of function
+
+    void timePrint() {
+        cout << setfill('0') << setw(2) << hours << ":" << setw(2)
+            << minutes << ":" << setw(2) << seconds;
+    }
+}; // End of class
+
+
+int main()
+{
+    Time object(5, 5, 49), input(13, 48, 9), difference(0, 0, 0);
+
+    object.computeTimeDifference(input, difference);
+
+    cout << "Print object time: \n";
+    object.timePrint();
+
+    cout << "\nPrint input time: \n";
+    input.timePrint();
+
+    cout << "\nPrint the time difference: \n";
+    difference.timePrint();
+    return 0;
+}
