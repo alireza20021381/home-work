@@ -1,0 +1,40 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+#include <iostream>
+#include <string>
+class Car {
+public:
+    unsigned int distanceDriven;
+    string brand, model;
+    Car()
+    {
+        cout << "Enter the car brand: ";
+        getline(cin, brand);
+        cout << "Enter the car model: ";
+        getline(cin, model);
+        cout << "Enter the car distance driven: ";
+        cin >> distanceDriven;
+    }
+
+    void drive(unsigned int distance)
+    {
+        distanceDriven += distance;
+    }
+
+    void showData()
+    {
+        cout << "\nBrand: " << brand << "\nModel: " << model << "\nDistance driven: "
+            << distanceDriven << "km\n";
+    }
+};
+
+int main()
+{
+    Car* car1 = new Car();
+    car1->drive(50);
+    car1->showData();
+
+    return 0;
+}
