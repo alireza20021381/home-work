@@ -2,12 +2,11 @@
 #include<string>
 using namespace std;
 
-#include <iostream>
-#include <string>
 class Car {
 public:
     unsigned int distanceDriven;
     string brand, model;
+
     Car()
     {
         cout << "Enter the car brand: ";
