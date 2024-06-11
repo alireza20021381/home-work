@@ -1,1 +1,59 @@
+#include<iostream>
+using namespace std;
 
+struct Email {
+    char address[255];
+
+    bool isValid()
+    {
+        int indexFirstAt = -1;
+        int indexLastDot = -1;
+        int flagAtSign = 0;
+        int flagDot = 0;
+
+        for (int i = 0; address[i] != '\0'; i++)
+        {
+            if (address[i] == '@') {
+                flagAtSign++;
+                
+                if (indexFirstAt == -1) {
+                    indexFirstAt++;
+                }
+            }
+
+            if (address[i] == '.') {
+                flagDot++;
+                indexLastDot = i;
+            }
+        }
+
+        if (flagAtSign == 1) {
+            if (indexLastDot > indexFirstAt) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+};
+
+
+int main()
+{
+    Email myEmail;
+
+    cout << "Enter an email: ";
+    cin >> myEmail.address;
+
+    if (myEmail.isValid())
+    {
+        cout << "\nThe email is valid.\n";
+    }
+    else {
+        cout << "\nThe email is invalid.\n";
+    }
+
+    return 0;
+}
