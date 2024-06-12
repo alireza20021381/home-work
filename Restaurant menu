@@ -1,0 +1,120 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+const float vat = 0.09;
+
+struct Food
+{
+    int code;
+    string name;
+    int price;
+};
+
+struct Drink
+{
+    int code;
+    string name;
+    int price;
+};
+
+struct AppetizersAndSalads
+{
+    int code;
+    string name;
+    int price;
+};
+
+Food foods[3];
+Drink drinks[3];
+AppetizersAndSalads salads[3];
+
+void foodMenu()
+{
+    foods[0].code = 1;
+    foods[0].name = "Pizza";
+    foods[0].price = 300000;
+
+    foods[1].code = 2;
+    foods[1].name = "Hot dog";
+    foods[1].price = 250000;
+
+    foods[2].code = 3;
+    foods[2].name = "Hamburger";
+    foods[2].price = 150000;
+
+
+
+    drinks[0].code = 4;
+    drinks[0].name = "Noshabe meshki";
+    drinks[0].price = 15000;
+
+    drinks[1].code = 5;
+    drinks[1].name = "Noshabe zard";
+    drinks[1].price = 15000;
+
+    drinks[2].code = 6;
+    drinks[2].name = "Doogh";
+    drinks[2].price = 20000;
+
+
+
+    salads[0].code = 7;
+    salads[0].name = "Jelly";
+    salads[0].price = 40000;
+
+    salads[1].code = 8;
+    salads[1].name = "Shirazi salad";
+    salads[1].price = 30000;
+
+    salads[2].code = 9;
+    salads[2].name = "Fasl salad";
+    salads[2].price = 60000;
+
+}
+
+int main()
+{
+    foodMenu();
+
+    cout << "Foods:\n";
+    for (int i = 0; i < 3; i++) {
+        cout << "Code: " << i + 1 << endl;
+        cout << "Name: " << foods[i].name << endl;
+        cout << "Price: " << foods[i].price << endl << endl;
+    }
+
+    cout << "Drinks:\n";
+    for (int i = 0; i < 3; i++) {
+        cout << "Code: " << i + 4 << endl;
+        cout << "Name: " << drinks[i].name << endl;
+        cout << "Price: " << drinks[i].price << endl << endl;
+    }
+
+    cout << "Appetizers:\n";
+    for (int i = 0; i < 3; i++) {
+        cout << "Code: " << i + 7 << endl;
+        cout << "Name: " << salads[i].name << endl;
+        cout << "Price: " << salads[i].price << endl << endl;
+    }
+
+    int selectItemFood;
+    int selectItemdrink;
+    int selectItemAppetizer;
+
+    cout << "Select item code for food: ";
+    cin >> selectItemFood;
+    
+    cout << "Select item code for drink: ";
+    cin >> selectItemdrink;
+
+    cout << "Select item code for Appetizer: ";
+    cin >> selectItemAppetizer;
+
+    int total = foods[selectItemFood - 1].price + drinks[selectItemdrink - 4].price 
+        + salads[selectItemAppetizer - 7 ].price;
+
+    cout << "Total: " << total << " toman" << endl;
+    cout << "Total plus value added: " << total * (1 + vat) << " toman";
+    return 0;
+}
