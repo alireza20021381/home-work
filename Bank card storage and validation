@@ -1,0 +1,85 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+struct card
+{
+    char number[16];
+    int indexRead = 0;
+
+    void setNumber()
+    {
+        number[0] = '\0';
+
+        char read;
+
+        while (indexRead < 16)
+        {
+            cout << number << endl;
+            cout << "D" << (indexRead + 1) << ": ";
+            cin >> read;
+
+            if (indexRead < 15) {
+                number[indexRead] = read;
+                number[indexRead + 1] = '\0';
+            }
+            else {
+                number[indexRead] = read;
+            }
+            
+             if(indexRead == 0) {
+                if (read == '0') {
+                    cout << "Wrong!\n";
+                    indexRead = 0;
+                }
+                else {
+                    indexRead++;
+                }
+             }
+
+            else if (indexRead == 3) {
+                if (!(strncmp(number, "6037", 4))) { // Meli bank
+                    cout << "The first four digits of the card are valid.\n";
+                    indexRead++;
+                }
+                else if (!(strncmp(number, "6104", 4))) { // Melat bank
+                    cout << "The first four digits of the card are valid.\n";
+                    indexRead++;
+                }
+                else if (!(strncmp(number, "5859", 4))) { // Tejarat bank
+                    cout << "The first four digits of the card are valid.\n";
+                    indexRead++;
+                }
+                else {
+                    cout << "The first four digits of the card are not valid.\n" <<
+                        "Please enter the card number again from the beginning.\n";
+                    indexRead = 0;
+                }
+            }
+
+            else if ((indexRead > 0 && indexRead < 3) || (indexRead > 3 && indexRead < 16)) {
+                 indexRead++;
+            }
+
+        }
+    }
+
+    void cardPrint()
+    {
+        cout << "\nCARD NUMBER:";
+        for (int i = 1; i <= 16; i++) {
+            if (i == 5 || i == 9 || i == 13) {
+                cout << "_";
+            }
+            cout << number[i - 1];
+        }
+
+    }
+};
+int main()
+{
+    card myCard;
+    myCard.setNumber();
+    myCard.cardPrint();
+    return 0;
+}
