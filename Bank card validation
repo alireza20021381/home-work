@@ -1,0 +1,82 @@
+#include<iostream>
+#include<cstring>
+#include<string>
+using namespace std;
+
+struct ValiCard {
+    char prefix[6];
+    char bankName[30];
+};
+
+
+ValiCard validationSources[3];
+
+void definitionOfValidationSources() {
+
+    strcpy(validationSources[0].prefix, "589463");
+    strcpy(validationSources[0].bankName, "Refah");
+
+    strcpy(validationSources[1].prefix, "603799");
+    strcpy(validationSources[1].bankName, "Meli");
+
+    strcpy(validationSources[2].prefix, "610433");
+    strcpy(validationSources[2].bankName, "Mellat");
+}
+
+
+struct Card {
+    char cardNumber[16];
+    char bankName[30];
+
+    bool isValid() {
+
+        for (int i = 0; i < 16; i++) {
+            if (!(cardNumber[i] >= '0' && cardNumber[i] <= '9')) {
+                return false;
+            }
+        }
+
+        if (strlen(cardNumber) == 16) {
+            for (int i = 0; i < 3; i++) {
+                if (!strncmp(cardNumber, validationSources[i].prefix, 6)) {
+                    strcpy(bankName, validationSources[i].bankName);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    void cardPrint()
+    {
+        cout << "\nCARD NUMBER:";
+        for (int i = 1; i <= 16; i++) {
+            if (i == 5 || i == 9 || i == 13) {
+                cout << "_";
+            }
+            cout << cardNumber[i - 1];
+        }
+        
+        cout << "\nBANK:" << bankName;
+    }
+
+};
+
+int main() {
+
+    definitionOfValidationSources();
+
+    Card myCard;
+
+    cout << "Please enter the card number without spaces: ";
+    cin >> myCard.cardNumber;
+
+    if (myCard.isValid()) {
+        cout << "Card is valid.\n";
+        myCard.cardPrint();
+    }
+    else {
+        cout << "Card is invalid.";
+    }
+    return 0;
+}
