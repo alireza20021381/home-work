@@ -1,0 +1,89 @@
+#include <iostream>
+#include<string>
+using namespace std;
+
+// ساختار آیتم ها
+struct MenuItem {
+    int code;
+    string name;
+    double price;
+};
+
+// تابع محاسبه ارزش افزوده
+double calculateVAT(double subtotal, double vatRate) {
+    return subtotal * vatRate;
+}
+
+// تابع برای دریافت منو از کاربر
+MenuItem* getMenu(int& numItems) {
+    cout << "Enter the number of menu items: ";
+    cin >> numItems;
+
+    MenuItem* menu = new MenuItem[numItems];
+    for (int i = 0; i < numItems; i++) {
+        cout << "Item code: ";
+        cin >> menu[i].code;
+        cout << "Item name: ";
+        cin.ignore();  // برای پاک کردن بافر ورودی
+        getline(cin, menu[i].name);
+        cout << "Item price: ";
+        cin >> menu[i].price;
+    }
+
+    return menu;
+}
+
+// تابع برای یافتن غذا بر اساس کد
+MenuItem* findItem(MenuItem* menu, int numItem, int foodCode) {
+    for (int i = 0; i < numItem; i++) {
+        if (menu[i].code == foodCode) {
+            return &menu[i];
+        }
+    }
+    return nullptr;
+}
+
+// تابع برای دریافت کد غذا 
+void getOrderDetails(int& itemCode) {
+    cout << "Enter your order code: ";
+    cin >> itemCode;
+}
+
+int main() {
+    int numItems;
+
+    // دریافت منو از کاربر
+    MenuItem* menu = getMenu(numItems);
+
+    double vatRate;
+    cout << "\nEnter a vat rate(e.g. 0.10 for 10%): ";
+    cin >> vatRate;
+
+    // دریافت ورودی‌های کاربر برای انتخاب غذا
+    int itemCode;
+    getOrderDetails(itemCode);
+
+    // جستجو در منو برای یافتن غذای مورد نظر
+    MenuItem* selectedItem = findItem(menu, numItems, itemCode);
+
+    // چاپ فاکتور و مبلغ نهایی
+    if (selectedItem) {
+        double total = selectedItem->price;
+        cout << "Code:" << selectedItem->code << " - " << "Item: " <<
+            selectedItem->name << " - " << "Price: " << selectedItem->price 
+            << " toman\n";
+
+        double vat = calculateVAT(total, vatRate);
+        cout << "Total Amount: " << total << " Toman\n";
+        cout << "Vat rate(" << vatRate * 100 << "%): " << vat << " Toman\n";
+        cout << "The amount payable: " << total + vat << " toman\n";
+    }
+    else {
+        cout << "The entered item code is not valid.\n";
+    }
+
+    // آزادسازی حافظه
+    delete[] menu;
+
+    return 0;
+}
